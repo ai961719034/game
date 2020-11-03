@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ll.game.dao.user.IUserDao">
+
+    <select id="login" parameterType="com.ll.game.model.user.User4Login" resultType="com.ll.game.model.user.User4Login">
+        SELECT
+            id,username,password,info_id
+        FROM
+            user4login
+        WHERE
+            username = ${user4Login.username}
+        AND
+            password = ${user4Login.password}
+    </select>
+
+
+</mapper>
