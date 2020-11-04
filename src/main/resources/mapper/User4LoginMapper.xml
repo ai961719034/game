@@ -4,13 +4,13 @@
 
     <select id="login" parameterType="com.ll.game.model.user.User4Login" resultType="com.ll.game.model.user.User4Login">
         SELECT
-            id,username,password,info_id
+            id,username,password,info_id userInfoId
         FROM
             user4login
         WHERE
-            username = ${user4Login.username}
+            username = #{user4Login.username}
         AND
-            password = ${user4Login.password}
+            password = #{user4Login.password}
     </select>
 
 

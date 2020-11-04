@@ -18,7 +18,7 @@ public class UserController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public MessageEnum login(User4Login user4Login) {
+    public Enum<MessageEnum> login(User4Login user4Login) {
         return userService.login(user4Login);
     }
 

@@ -6,6 +6,6 @@ import com.ll.game.model.user.User4Login;
 public interface IUserService {
 
 
-    MessageEnum login(User4Login user4Login);
+    Enum<MessageEnum> login(User4Login user4Login);
 
 }

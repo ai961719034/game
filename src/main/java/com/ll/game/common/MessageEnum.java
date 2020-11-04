@@ -3,6 +3,8 @@ package com.ll.game.common;
 public enum MessageEnum {
 
     LOGIN_SUCCESS("200", "登录成功!"),
+    USERNAME_OR_PASSWORD_IS_NULL("1001", "用户名或密码不能为空!"),
+    USER_NOT_FOUND("1002", "找不到此用户,登录失败!"),
     ;
 
     private String code;
