@@ -6,6 +6,7 @@
     <title>主页</title>
 
     <link rel="stylesheet" href="doc/bootstrap.min.css" type="text/css">
+
 </head>
 <body>
 
@@ -51,7 +52,7 @@
                     <li><a href="#">会员中心</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" id="user_id" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">username<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                        <ul id="info_dropdown" class="dropdown-menu">
                             <li><a href="#">个人信息</a></li>
                             <li><a href="#">设置</a></li>
                             <li role="separator" class="divider"></li>
@@ -64,14 +65,92 @@
     </nav>
     <!-- 导航条结束 -->
 
+    <!-- 登录form表单 -->
+    <form class="form-horizontal" id="login_form" style="display: none">
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">用户名</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="username" placeholder="Username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">密码</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
 
-    <h1>Hello, world!</h1>
+    <!-- 巨幕 -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1>巨幕</h1>
+            <p>...</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+        </div>
+    </div>
+
     <script language="JavaScript" src="doc/jquery-3.3.1.min.js"></script>
-    <script src="doc/bootstrap.min.js" />
-</body>
-    <script language="JavaScript">
+    <script src="doc/bootstrap.min.js"></script>
+    <script src="bootbox/bootbox.min.js"></script>
+    <script src="bootbox/bootbox.locales.min.js"></script>
+    <script>
+
         $(function () {
-            alert(111);
+            getUserLoginInfo();
         });
+        var loginbox;
+        function getUserLoginInfo() {
+            var username;
+            var password;
+            $.ajax({
+                url: "user/get_user_login_info",
+                type: "get",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    if(null == data.data) {
+                        $("#user_id").html("您好,请登录");
+                        $("#info_dropdown").hide();
+                        $("#user_id").on("click", function(e) {
+                            loginbox = bootbox.dialog({
+                                title: "登录",
+                                message: $("#login_form").html(),
+                                buttons: {
+                                    cancel: {
+                                        label: "取消",
+                                        className: "btn btn-danger"
+                                    },
+                                    reg: {
+                                        label: "登录",
+                                        className: "btn btn-success",
+                                        callback: function(result) {
+                                            username = $("#username", loginbox).val();
+                                            password = $("#password", loginbox).val();
+                                            
+                                        },
+                                    }
+                                }
+                            })
+                        })
+
+                    } else {
+                        userId = "欢迎您，" + data.data.username;
+                        $("#info_dropdown").show();
+                    }
+                }
+            });
+        }
     </script>
+</body>
+
 </html>
